@@ -6,7 +6,7 @@ const {
   firstCharacter,
   firstCharacters,
 } = require('./lib/strings');
-const { add, subtract } = require('./lib/numbers');
+const { add, subtract, multiply } = require('./lib/numbers');
 
 const app = express();
 
@@ -56,6 +56,21 @@ app.get('/numbers/subtract/:number1/from/:number2', (req, res) => {
 
   res.status(200);
   res.send({ result: subtract(num2, num1) });
+});
+
+app.post('/numbers/multiply', (req, res) => {
+  res.status(200);
+  let { a, b } = req.body;
+
+  if (typeof a === 'string') {
+    a = parseInt(a, 10);
+  }
+
+  if (typeof a === 'string') {
+    b = parseInt(b, 10);
+  }
+
+  res.send({ result: multiply(a, b) });
 });
 
 module.exports = app;
