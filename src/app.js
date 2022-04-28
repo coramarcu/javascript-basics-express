@@ -62,12 +62,22 @@ app.post('/numbers/multiply', (req, res) => {
   res.status(200);
   let { a, b } = req.body;
 
+  if (a === undefined || b === undefined) {
+    res.status(400);
+    res.send({ error: 'Parameters "a" and "b" are required.' });
+  }
+
   if (typeof a === 'string') {
     a = parseInt(a, 10);
   }
 
   if (typeof a === 'string') {
     b = parseInt(b, 10);
+  }
+
+  if (Number.isNaN(a) || Number.isNaN(b)) {
+    res.status(400);
+    res.send({ error: 'Parameters "a" and "b" must be valid numbers.' });
   }
 
   res.send({ result: multiply(a, b) });
